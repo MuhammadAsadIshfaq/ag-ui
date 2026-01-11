@@ -23,6 +23,7 @@ import { AWSStrandsAgent } from "@ag-ui/aws-strands-integration";
 import { A2AAgent } from "@ag-ui/a2a";
 import { A2AClient } from "@a2a-js/sdk/client";
 import { LangChainAgent } from "@ag-ui/langchain";
+import { LangroidHttpAgent } from "@ag-ui/langroid";
 
 const envVars = getEnvVars();
 export const agentsIntegrations: AgentIntegrationConfig[] = [
@@ -494,6 +495,17 @@ export const agentsIntegrations: AgentIntegrationConfig[] = [
         agentic_generative_ui: new AWSStrandsAgent({ url: `${envVars.awsStrandsUrl}/agentic-generative-ui/` }),
         shared_state: new AWSStrandsAgent({ url: `${envVars.awsStrandsUrl}/shared-state/` }),
         human_in_the_loop: new AWSStrandsAgent({ url: `${envVars.awsStrandsUrl}/human-in-the-loop/`, debug: true }),
+      };
+    },
+  },
+  {
+    id: "langroid",
+    agents: async () => {
+      return {
+        agentic_chat: new LangroidHttpAgent({ url: `${envVars.langroidUrl}/agentic_chat/` }),
+        backend_tool_rendering: new LangroidHttpAgent({ url: `${envVars.langroidUrl}/backend_tool_rendering/` }),
+        agentic_generative_ui: new LangroidHttpAgent({ url: `${envVars.langroidUrl}/agentic_generative_ui/` }),
+        shared_state: new LangroidHttpAgent({ url: `${envVars.langroidUrl}/shared_state/` }),
       };
     },
   },
